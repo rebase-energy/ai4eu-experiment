@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+    <link href="static/css/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js" integrity="sha512-zInFF17qBFVvvvFpIfeBzo7Tj7+rQxLeTJDmbxjBz5/zIr89YVbTNelNhdTT+/DCrxoVzBeUPVFJsczKbB7sew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+
+<body>
+    <h2 style="margin-top: 64px">
+        Rebase data broker
+    </h2>
+    <div class="card">
+        <form id="input_form" class="flex-row" style="max-width: 1200px " action="/"">
+            <div>
+            <label for='dataset'>
+                Dataset name
+            </label>
+            <input 
+                id='input_name' 
+                name=" dataset" style="margin-top: 4px"
+                placeholder="rebase-energy/NVE-Wind-Power-Production-in-Norway" />
+            </div>
+            <div style="margin-left: 16px">
+                <label for="asset">
+                    Asset name
+                </label>
+                <input id='input_asset' name="asset" style="margin-top: 4px" placeholder="Marker" />
+            </div>
+            <div style="margin-top: 20px; margin-left: 16px">
+                <button id='btn_download' type="submit">
+                    GET
+                </button>
+                <p id='error_text' style="color: red; display: none;">
+                    API Error
+                </p>
+            </div>
+
+
+
+    </form>
+
+    </div>
+
+    <div class="card" style="margin-top: 32px">
+        <h3>
+            Train set
+        </h3>
+        <canvas id="train_chart" width="1200" height="400"></canvas>
+        <div class="flex-row">
+            <div style="flex: 1"></div>
+            <a href='/download/train' download="" style="text-decoration: none">
+
+            <Button>
+                DOWNLOAD
+            </Button>
+            </a>
+        </div>
+
+
+    </div>
+    <div class="card" style="margin-top: 32px; margin-bottom: 64px">
+        <h3>
+            Valid set
+        </h3>
+        <canvas id="valid_chart" width="1200" height="400"></canvas>
+        <div class="flex-row">
+            <div style="flex: 1"></div>
+            <a href='/download/valid' download="" style="text-decoration: none">
+
+            <Button>
+                DOWNLOAD
+            </Button>
+            </a>
+        </div>
+    </div>
+    <script>
+        const trainCtx = document.getElementById('train_chart').getContext('2d');
+        const trainChart = new Chart(trainCtx, {
+            type: 'line',
+            data: {
+                datasets: []
+            },
+            options: {
+                //parsing: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 6,
+                            maxRotation: 0,
+                        }
+                    }
+                }
+            }
+        });
+        const validCtx = document.getElementById('valid_chart').getContext('2d');
+        const validChart = new Chart(validCtx, {
+            type: 'line',
+            data: {
+                datasets: []
+            },
+            options: {
+                //parsing: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 6,
+                            maxRotation: 0,
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="static/js/api.js"></script>
+
+</body>
+
+</html>
