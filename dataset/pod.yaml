@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rebasedatabroker
+spec:
+  containers:
+  - name: rebasedatabroker
+    image: greenlytics/ai4eu:dataset-broker-0.4
+    ports:
+    - containerPort: 8061
+    - containerPort: 8062
