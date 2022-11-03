@@ -31,36 +31,6 @@ class RebaseDatasetService(model_pb2_grpc.RebaseDatasetServicer):
     def LoadData(self, request, context):
         with open('out/output.pickle', 'rb') as f:
             data = pickle.load(f)
-            # df = pd.DataFrame(data=data['data'])
-            # df.index = pd.MultiIndex.from_arrays(
-            #     [pd.to_datetime(df['ref_datetime'].values),
-            #     pd.to_datetime(df['valid_datetime'].values)],
-            #     names=['ref_datetime', 'valid_datetime'])
-            # # Drop now duplicated index columns
-            # df = df.drop(columns=['ref_datetime', 'valid_datetime'])
-
-            # df_train = df.loc[df.index[0][0]:'2021-12-31 06:00']
-            # df_train = df_train.reset_index()
-            # df_train['ref_datetime'] = df_train['ref_datetime'].dt.strftime('%Y-%m-%d %H:%M')
-            # df_train['valid_datetime'] = df_train['valid_datetime'].dt.strftime('%Y-%m-%d %H:%M')
-            # train_set = df_train.to_dict(orient='list')
-
-            # last_ref_time = df.index[-1][0]
-
-            # df2 = df.loc[last_ref_time]
-            # df2 = df2.reset_index()
-            # df2.index = pd.MultiIndex.from_arrays(
-            #     [
-            #         pd.to_datetime([last_ref_time for _ in df2.index.values]),
-            #         df2['valid_datetime'].values
-            #     ],
-            #     names=['ref_datetime', 'valid_datetime']
-            # )
-            # df2 = df2.drop(columns=['valid_datetime'])
-            # df2 = df2.reset_index()
-            # df2['ref_datetime'] = df2['ref_datetime'].dt.strftime('%Y-%m-%d %H:%M')
-            # df2['valid_datetime'] = df2['valid_datetime'].dt.strftime('%Y-%m-%d %H:%M')
-            # pred_set = df2.to_dict(orient='list')
 
         # Return the JSON response from the API
         response = model_pb2.Response(

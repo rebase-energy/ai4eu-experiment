@@ -5,26 +5,7 @@ This project has received funding from the European Union's Horizon 2020 researc
 
 [rebase.energy](https://rebase.energy) is an open and collaborative energy modelling platform that provides open energy datasets. The datasets can be found [here](https://rebase.energy/datasets)
 
-This broker is a wrapper that can load these datasets.
-
-
-
-# How to use
-
-## Install dependencies
-
-``pip install -r requirements.txt``
-
-## Start server
-Run:
-``python -m server``
-
-This will start a UI at http://localhost:8062
-
-See a demonstration video [here](https://drive.google.com/file/d/1SlDUP5Arn1UChUAcYSfEZtIEWdGBtT7Y/view) how it can be used. 
-
-
-The dataset platform is under development. Currently one dataset exists, but many more will be added. 
+This broker is a wrapper that can load these datasets. The dataset platform is under development. Currently one dataset exists, but many more will be added. 
 
 Available datasets:
 
@@ -32,9 +13,41 @@ Available datasets:
 
 
 
+# Deploy
+
+## Kubernetes
+You can deploy this in Kubernetes
+
+1. Go to the asset [here](https://aiexp.ai4europe.eu/#/marketSolutions?solutionId=a514218c-d37f-4c38-a06d-c60a267eda42&revisionId=8ad34ae9-6fd3-4815-b890-99d6f22bf929&parentUrl=marketplace#md-model-detail-template)
+
+2. Click on "Deploy for Execution" in the top right corner, or "Sign In To Download" first if you're not logged in
+
+3. Click on Local Kubernetes
+
+4. unzip solution.zip
+
+5. Create a new namespace: ``kubectl create ns <namespace>``
+
+6. Install the deployment and service: ``python solution/kubernetes-client-script.py -n <namespace>``
+
+7. Confirm the setup by running: ``kubectl get pods -n <namespace>``
+
+
+## Install locally
+
+``pip install -r requirements.txt``
+
+## Start server
+Run:
+``python -m server``
+
+This will start the gRPC server at http://localhost:8061 and UI at http://localhost:8062
+
 
 
 ## Test with client
+
+
 Run:
 
 ``python -m client``
@@ -62,18 +75,6 @@ ref_datetime, valid_datetime and target are always returned in the data. There m
 - **valid_datetime** - the timestamp when the each feature value rows was valid
 - **target** - the target to predict
 - **features_0/features_n** - optional features of same length
-
-
-
-## Deploy
-You can deploy this in Kubernetes
-
-```
-kubectl create ns <namespace_name>
-```
-```
-kubectl apply -f pod.yaml -n <namespace_name>
-```
 
 
 

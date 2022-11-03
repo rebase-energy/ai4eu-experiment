@@ -8,9 +8,27 @@ This project has received funding from the European Union's Horizon 2020 researc
 This is model is a LightGBM time-series forecasting model. LightGBM is a gradient boosting decision tree framework developed by Microsoft. 
 
 
-# How to use
+# Deploy
 
-## Install dependencies
+## Kubernetes
+You can deploy this in Kubernetes
+
+1. Go to the asset [here](https://aiexp.ai4europe.eu/#/marketSolutions?solutionId=6662fc35-2e6c-4f48-8e26-f7b677acbb62&revisionId=97313833-7e70-47b1-8524-139c2dc26a78&parentUrl=marketplace#md-model-detail-template)
+
+2. Click on "Deploy for Execution" in the top right corner, or "Sign In To Download" first if you're not logged in
+
+3. Click on Local Kubernetes
+
+4. unzip solution.zip
+
+5. Create a new namespace: ``kubectl create ns <namespace>``
+
+6. Install the deployment and service: ``python solution/kubernetes-client-script.py -n <namespace>``
+
+7. Confirm the setup by running: ``kubectl get pods -n <namespace>``
+
+
+## Install locally
 
 ``pip install -r requirements.txt``
 
@@ -18,11 +36,9 @@ This is model is a LightGBM time-series forecasting model. LightGBM is a gradien
 Run:
 ``python -m server``
 
-This will start a UI at http://localhost:8062
+This will start the gRPC server at http://localhost:8061 and UI at http://localhost:8062
 
-See a demonstration video [here](https://drive.google.com/file/d/1QD6UlpGk3Aczxl4i2hWH_FGh0U-VUJzZ/view?usp=sharing) how it can be used. 
-
-
+# How to use
 
 ## Test with client
 Run:
@@ -76,18 +92,6 @@ ref_datetime, valid_datetime and target should always be in the input data. The 
 - **ref_datetime** - the point in time that the features were available to you, etc if you are using weather forecasts, it represents at what point in time you would have gotten those features from the forecast
 - **valid_datetime** - the timestamp when the each feature value rows was valid
 - **target** - the target to predict
-
-
-
-## Deploy
-You can deploy this in Kubernetes
-
-```
-kubectl create ns <namespace_name>
-```
-```
-kubectl apply -f pod.yaml -n <namespace_name>
-```
 
 
 
